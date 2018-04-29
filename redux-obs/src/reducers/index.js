@@ -17,7 +17,7 @@ export const startInterval = (speed = 500) => ({
 })
 export const stopInterval = () => ({ type: STOP_INTERVAL })
 
-const intervalEpic = action$ =>
+const intervalEpic = (action$, state$, dependencies) =>
   action$.pipe(
     ofType(START_INTERVAL),
     switchMap(({ payload }) => {
