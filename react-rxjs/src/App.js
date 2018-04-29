@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { interval } from 'rxjs'
+import './App.css'
 
 class App extends Component {
+  state = {
+    tick: 0
+  }
+  componentDidMount() {
+    this.sub = interval(500).subscribe(tick => this.setState({ tick }))
+  }
+
+  componentWillUnmount() {
+    this.sub.unsubscribe()
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>{this.state.tick}</h1>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
